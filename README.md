@@ -1,2 +1,2 @@
-# REP_GIT_ESTUDOS
+# GIT REPOSITÓRIO DE ESTUDOS
  Repositório de estudos
