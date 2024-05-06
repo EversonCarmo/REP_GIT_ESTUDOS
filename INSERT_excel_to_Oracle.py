@@ -2,10 +2,19 @@ import pandas as pd
 import cx_Oracle
 from pathlib import Path
 
+# Verificar e instalar a dependência openpyxl se necessário
+try:
+    import openpyxl
+except ImportError:
+    import subprocess
+    import sys
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "openpyxl"])
+    import openpyxl
+
 # Defina as credenciais do banco de dados Oracle
 oracle_username = 'SYSTEM'
 oracle_password = 'Oracle123'
-oracle_host = '192.168.0.9'
+oracle_host = '192.168.0.3'
 oracle_port = '1521'
 oracle_service = 'XE'
 
@@ -26,17 +35,17 @@ def carregar_para_oracle(planilha_path, oracle_username, oracle_password, oracle
 
     # Loop através das linhas do DataFrame e inserir os dados na tabela Oracle
     for indice, linha in dados_planilha.iterrows():
-        num_cpf = linha['CPF']
-        cod_agencia = linha['agencia']
-        num_conta = linha['conta']
-        nm_cliente = linha['nome_cliente']
-        cod_uf = linha['UF']
-        dat_nasc = linha['data_nascimento']
-        ind_sexo = linha['ind_sexo']
-        num_fone1 = linha['FONE1']
-        num_fone2 = linha['FONE2']
-        num_fone3 = linha['FONE3']
-        num_fone4 = linha['FONE4']
+        num_cpf = str(linha['CPF'])
+        cod_agencia = str(linha['agencia'])
+        num_conta = str(linha['conta'])
+        nm_cliente = str(linha['nome_cliente'])
+        cod_uf = str(linha['UF'])
+        dat_nasc = str(linha['data_nascimento'])
+        ind_sexo = str(linha['ind_sexo'])
+        num_fone1 = str(linha['FONE1'])
+        num_fone2 = str(linha['FONE2'])
+        num_fone3 = str(linha['FONE3'])
+        num_fone4 = str(linha['FONE4'])
 
         comando_sql = f"INSERT INTO {tabela_oracle} (NUM_CPF, COD_AGENCIA, NUM_CONTA, NOME_CLIENTE, COD_UF, DAT_NASC, IND_SEXO, NUM_FONE1, NUM_FONE2, NUM_FONE3, NUM_FONE4) VALUES (:1, :2, :3, :4, :5, :6, :7, :8, :9, :10, :11)"
         cursor.execute(comando_sql, (num_cpf, cod_agencia, num_conta, nm_cliente, cod_uf, dat_nasc, ind_sexo, num_fone1, num_fone2, num_fone3, num_fone4))
