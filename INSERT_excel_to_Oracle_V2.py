@@ -2,10 +2,19 @@ import pandas as pd
 import cx_Oracle
 from pathlib import Path
 
+# Verificar e instalar a dependência openpyxl se necessário
+try:
+    import openpyxl
+except ImportError:
+    import subprocess
+    import sys
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "openpyxl"])
+    import openpyxl
+
 # Defina as credenciais do banco de dados Oracle
 oracle_username = 'SYSTEM'
 oracle_password = 'Oracle123'
-oracle_host = '192.168.0.9'
+oracle_host = '192.168.0.3'
 oracle_port = '1521'
 oracle_service = 'XE'
 
