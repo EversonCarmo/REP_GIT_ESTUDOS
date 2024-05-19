@@ -1,6 +1,10 @@
+
+
 import pandas as pd
 import cx_Oracle
-from pathlib import Path
+from pathlib import 
+
+
 
 # Verificar e instalar a dependência openpyxl se necessário
 try:
